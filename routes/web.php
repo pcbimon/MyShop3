@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,25 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return 'show all product';
-})->name('home');
-Route::get('/about',function(){
-    return 'About Shop';
-})->name('about');
+Route::get('/', [StoreController::class,'Home'])->name('home');
+Route::get('/about',[StoreController::class,'About'])->name('about');
 Route::group(['prefix'=>'product','as'=>'product.'], function() {
-    Route::get('/',function(){
-        return 'All Product';
-    })->name('index');
-    Route::get('/create',function(){
-        return 'Create New Product';
-    })->name('create');
+    Route::get('/',[ProductController::class,'Index'])->name('index');
+    Route::get('/create',[ProductController::class,'Create'])->name('create');
     Route::post('/',function(){
         return 'Store Product';
     })->name('store');
-    Route::get('/{id}/edit',function($id){
-        return 'Edit Product ID '.$id;
-    })->name('edit');
+    Route::get('/{id}/edit',[ProductController::class,'Edit'])->name('edit');
     Route::put('/{id}',function($id){
         return 'Update Product ID '.$id;
     })->name('update');
