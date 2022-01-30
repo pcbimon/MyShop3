@@ -21,16 +21,10 @@ Route::get('/about',[StoreController::class,'About'])->name('about');
 Route::group(['prefix'=>'product','as'=>'product.'], function() {
     Route::get('/',[ProductController::class,'Index'])->name('index');
     Route::get('/create',[ProductController::class,'Create'])->name('create');
-    Route::post('/',function(){
-        return 'Store Product';
-    })->name('store');
+    Route::post('/',[ProductController::class,'Store'])->name('store');
     Route::get('/{id}/edit',[ProductController::class,'Edit'])->name('edit');
-    Route::put('/{id}',function($id){
-        return 'Update Product ID '.$id;
-    })->name('update');
-    Route::delete('/{id}',function($id){
-         'Delete Product ID '.$id;
-    })->name('delete');
+    Route::put('/{id}',[ProductController::class,'Update'])->name('update');
+    Route::delete('/{id}',[ProductController::class,'delete'])->name('delete');
 });
 Route::group(['prefix'=>'user','as'=>'user.'], function() {
     Route::get('/login',function(){

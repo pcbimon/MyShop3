@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -13,7 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('products.index');
+        $products = Product::all();
+        return view('products.index',['products'=>$products]);
     }
 
     /**
@@ -34,7 +37,38 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //  dd($request);
+        $rules = [
+            'productname'=>'required|max:50',
+            'productdesc'=>'required|min:10',
+            'productprice'=>'required'
+        ];
+        $customMessages=[
+            'productname.required' => 'กรุณากรอกชื่อผลิตภัณฑ์',
+            'productname.max' => 'ชื่อผลิตภัณฑ์ต้องมีตัวอักษรไม่เกิน 50 ตัวอักษร',
+            'productdesc.required' => 'กรุณากรอกคำอธิบาย',
+            'productdesc.min' => 'คำอธิบายต้องมีตัวอักษรตั้งแต่ 10 ตัวอักษรขึ้นไป',
+            'productprice.required' => 'กรุณากรอกราคา',
+        ];
+        $request->validate($rules,$customMessages);
+
+        $product = new Product();
+        $product->productName = $request->productname;
+        $product->price = $request->productprice;
+        $product->productDesc = $request->productdesc;
+        $product->save();
+
+        if($request->hasFile('fileupload')){
+            $file = $request->file('fileupload');
+            $path = Storage::putFileAs('public',$file,$product->id.'.'.$file->extension());
+            $path = str_replace('public/','',$path);
+
+            $product = Product::find($product->id);
+            $product->fileUpload = $path;
+            $product->save();
+        }
+
+        return redirect()->route('product.index');
     }
 
     /**
@@ -56,7 +90,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('products.edit',['id'=>$id]);
+        $product = Product::find($id);
+        return view('products.edit',['id'=>$id,'product'=>$product]);
     }
 
     /**
@@ -68,7 +103,37 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'productname'=>'required|max:50',
+            'productdesc'=>'required|min:10',
+            'productprice'=>'required'
+        ];
+        $customMessages=[
+            'productname.required' => 'กรุณากรอกชื่อผลิตภัณฑ์',
+            'productname.max' => 'ชื่อผลิตภัณฑ์ต้องมีตัวอักษรไม่เกิน 50 ตัวอักษร',
+            'productdesc.required' => 'กรุณากรอกคำอธิบาย',
+            'productdesc.min' => 'คำอธิบายต้องมีตัวอักษรตั้งแต่ 10 ตัวอักษรขึ้นไป',
+            'productprice.required' => 'กรุณากรอกราคา',
+        ];
+        $request->validate($rules,$customMessages);
+
+        $product = Product::find($id);
+        $product->productName = $request->productname;
+        $product->price = $request->productprice;
+        $product->productDesc = $request->productdesc;
+        $product->save();
+
+        if($request->hasFile('fileupload')){
+            $file = $request->file('fileupload');
+            $path = Storage::putFileAs('public',$file,$product->id.'.'.$file->extension());
+            $path = str_replace('public/','',$path);
+
+            $product = Product::find($product->id);
+            $product->fileUpload = $path;
+            $product->save();
+        }
+
+        return redirect()->route('product.index');
     }
 
     /**
@@ -77,8 +142,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+        return redirect()->route('product.index');
     }
 }
