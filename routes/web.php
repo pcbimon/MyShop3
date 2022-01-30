@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,18 +42,12 @@ Route::group(['prefix'=>'user','as'=>'user.'], function() {
     Route::get('/logout',function(){
         return 'Logout and go to home';
     })->name('logout');
-    Route::get('/',function(){
-        return '<h1>All User</h1>';
-    })->name('index');
-    Route::get('/create',function(){
-        return 'Create New User';
-    })->name('create');
+    Route::get('/',[UserController::class,'Index'])->name('index');
+    Route::get('/create',[UserController::class,'Create'])->name('create');
     Route::post('/',function(){
         return 'Store User';
     })->name('store');
-    Route::get('/{id}/edit',function($id){
-        return 'Edit User ID '.$id;
-    })->name('edit');
+    Route::get('/{id}/edit',[UserController::class,'Edit'])->name('edit');
     Route::put('/{id}',function($id){
         return 'Update User ID '.$id;
     })->name('update');
