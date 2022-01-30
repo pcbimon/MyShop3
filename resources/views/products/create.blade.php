@@ -51,11 +51,11 @@
                         </div>
                         <div class="mt-3">
                             <label class="form-label" for="fileupload">รูปตัวอย่าง</label>
-                            <input type="file" class="form-control" id="fileupload" name="fileupload">
+                            <input type="file" class="form-control" id="fileupload" onchange="preview_image(event)" accept="image/*" name="fileupload">
                         </div>
                     </div>
                     <div class="col-md-6 d-flex justify-content-center align-self-center">
-                        <img src="https://via.placeholder.com/300x300?text=Product+Image" class="h-100" alt="">
+                        <img id="previewImage" src="https://via.placeholder.com/300x300?text=Product+Image" width="300" alt="">
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -69,4 +69,15 @@
             </form>
         </div>
     </div>
+    <script>
+    function preview_image(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+        var output = document.getElementById('previewImage');
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+
 @stop

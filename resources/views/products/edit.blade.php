@@ -43,12 +43,12 @@
                         </div>
                         <div class="mt-3">
                             <label class="form-label" for="fileupload">รูปตัวอย่าง</label>
-                            <input type="file" class="form-control" id="fileupload" name="fileupload">
+                            <input type="file" class="form-control" id="fileupload" name="fileupload" onchange="preview_image(event)" accept="image/*">
                         </div>
                     </div>
                     <div class="col-md-6 d-flex justify-content-center align-self-center">
                         @if ($product->fileUpload != null)
-                            <img src="{{asset('/storage/'.$product->fileUpload)}}" height="300" alt="">
+                            <img id="previewImage"  src="{{asset('/storage/'.$product->fileUpload)}}" height="300" alt="">
                         @else
                             <img src="https://via.placeholder.com/300x300?text=No+Image" class="h-100" alt="">
                         @endif
@@ -75,4 +75,14 @@
             </div>
         </div>
     </div>
+    <script>
+        function preview_image(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+            var output = document.getElementById('previewImage');
+                output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 @stop

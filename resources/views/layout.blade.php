@@ -7,6 +7,7 @@
     <title>MyShop - @yield('title')</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/font-awesome/css/all.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/v/dt/dt-1.11.4/datatables.min.css" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -62,5 +63,8 @@
         @yield('content')
     </div>
     <script type="text/javascript" src="{{ asset('libs/bootstrap/js/bootstrap.bundle.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.4/datatables.min.js"></script>
+    @yield('javascript');
 </body>
 </html>

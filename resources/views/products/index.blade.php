@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="row mt-3">
-        <table class="table">
+        <table id="productTable" class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th class="col-1" scope="col">ลำดับ</th>
@@ -34,4 +34,14 @@
             </tbody>
         </table>
     </div>
-@stop
+@endsection
+@section('javascript')
+<script>
+    $(document).ready(function() {
+        $('#productTable').DataTable({
+            pageLength: 5,
+            lengthMenu: [5, 10, 20, 50, 100, 200, 500],
+        });
+    });
+    </script>
+@endsection

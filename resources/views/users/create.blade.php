@@ -14,29 +14,48 @@
                                     <input type="text" class="form-control @error('firstname') is-invalid @enderror" id="firstname" name="firstname"
                                         placeholder="ชื่อจริง" value="{{old('firstname')}}">
                                     <label for="firstname">ชื่อจริง</label>
-
+                                    <span class="text-danger">
+                                        @error('firstname')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="lastname" name="lastname"
+                                    <input type="text" class="form-control @error('lastname') is-invalid @enderror" id="lastname" name="lastname"
                                         placeholder="นามสกุล" value="{{old('lastname')}}">
                                     <label for="lastname">นามสกุล</label>
+                                    <span class="text-danger">
+                                        @error('lastname')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="email" name="email" placeholder="อีเมล"  value="{{old('email')}}">
+                                    <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="อีเมล"  value="{{old('email')}}">
                                     <label for="email">อีเมล</label>
+                                    <span class="text-danger">
+                                        @error('email')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="password" class="form-control" id="password" name="password"
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
                                         placeholder="รหัสผ่าน" value="{{old('password')}}">
                                     <label for="password">รหัสผ่าน</label>
+                                    <span class="text-danger">
+                                        @error('password')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
                                 </div>
                             </div>
                         </div>

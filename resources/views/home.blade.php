@@ -52,118 +52,59 @@
                 <h5 class="card-header">สินค้าใหม่ล่าสุด</h5>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-3 mb-3">
-                            <div class="card">
-                                <img src="https://via.placeholder.com/280x180?text=Product" class="card-img-top"
-                                    alt="https://via.placeholder.com/180x280?text=Product">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product Name</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up
-                                        the bulk of the card's content.</p>
-                                    <div class="d-grid gap-2">
-                                        <button class="btn btn-primary" type="button">Detail</button>
+                        @foreach ($products as $product)
+                            <div class="col-md-3 mb-3">
+                                <div class="card">
+                                    <img src="{{ asset('/storage/' . $product->fileUpload) }}" class="card-img-top">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $product->productName }}</h5>
+                                        <p class="card-text">{{ $product->productDesc }}</p>
+                                        <div class="d-grid gap-2">
+                                            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#productModal_{{$product->id}}">Detail</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="productModal_{{$product->id}}" tabindex="-1"
+                                    aria-labelledby="productModalLabel_{{$product->id}}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="productModalLabel_{{$product->id}}">{{$product->productName}}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <h1 class="text-primary">{{$product->price}} ฿</h1>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <img src="{{ asset('/storage/' . $product->fileUpload) }}" height="200">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <div class="card">
-                                <img src="https://via.placeholder.com/280x180?text=Product" class="card-img-top"
-                                    alt="https://via.placeholder.com/180x280?text=Product">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product Name</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up
-                                        the bulk of the card's content.</p>
-                                    <div class="d-grid gap-2">
-                                        <button class="btn btn-primary" type="button">Detail</button>
+                        @endforeach
+                        @if (count($products) == 7)
+                            {{-- Last item --}}
+                            <div class="col-md-3 mb-3">
+                                <div class="card h-100">
+                                    <div class="row align-items-center h-100">
+                                        <div class="col-6 mx-auto">
+                                            <a href="{{ route('product.index') }}" class="stretched-link">
+                                                <h3 class="align-self-center text-center">
+                                                    <label>More <i class="fas fa-angle-double-right"></i></label>
+                                                </h3>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <div class="card">
-                                <img src="https://via.placeholder.com/280x180?text=Product" class="card-img-top"
-                                    alt="https://via.placeholder.com/180x280?text=Product">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product Name</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up
-                                        the bulk of the card's content.</p>
-                                    <div class="d-grid gap-2">
-                                        <button class="btn btn-primary" type="button">Detail</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <div class="card">
-                                <img src="https://via.placeholder.com/280x180?text=Product" class="card-img-top"
-                                    alt="https://via.placeholder.com/180x280?text=Product">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product Name</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up
-                                        the bulk of the card's content.</p>
-                                    <div class="d-grid gap-2">
-                                        <button class="btn btn-primary" type="button">Detail</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <div class="card">
-                                <img src="https://via.placeholder.com/280x180?text=Product" class="card-img-top"
-                                    alt="https://via.placeholder.com/180x280?text=Product">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product Name</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up
-                                        the bulk of the card's content.</p>
-                                    <div class="d-grid gap-2">
-                                        <button class="btn btn-primary" type="button">Detail</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <div class="card">
-                                <img src="https://via.placeholder.com/280x180?text=Product" class="card-img-top"
-                                    alt="https://via.placeholder.com/180x280?text=Product">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product Name</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up
-                                        the bulk of the card's content.</p>
-                                    <div class="d-grid gap-2">
-                                        <button class="btn btn-primary" type="button">Detail</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <div class="card">
-                                <img src="https://via.placeholder.com/280x180?text=Product" class="card-img-top"
-                                    alt="https://via.placeholder.com/180x280?text=Product">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product Name</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up
-                                        the bulk of the card's content.</p>
-                                    <div class="d-grid gap-2">
-                                        <button class="btn btn-primary" type="button">Detail</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {{-- Last item --}}
-                        <div class="col-md-3 mb-3">
-                            <div class="card h-100">
-                                <div class="row align-items-center h-100">
-                                    <div class="col-6 mx-auto">
-                                        <a href="{{ route('product.index') }}" class="stretched-link">
-                                            <h3 class="align-self-center text-center">
-                                                <label>More <i class="fas fa-angle-double-right"></i></label>
-                                            </h3>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

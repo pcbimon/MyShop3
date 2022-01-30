@@ -27,25 +27,13 @@ Route::group(['prefix'=>'product','as'=>'product.'], function() {
     Route::delete('/{id}',[ProductController::class,'delete'])->name('delete');
 });
 Route::group(['prefix'=>'user','as'=>'user.'], function() {
-    Route::get('/login',function(){
-        return 'View Login Page';
-    })->name('login');
-    Route::post('/login',function(){
-        return 'Authentication';
-    })->name('authen');
-    Route::get('/logout',function(){
-        return 'Logout and go to home';
-    })->name('logout');
+    Route::get('/login',[UserController::class,'Login'])->name('login');
+    Route::post('/login',[UserController::class,'Authen'])->name('authen');
+    Route::get('/logout',[UserController::class,'Logout'])->name('logout');
     Route::get('/',[UserController::class,'Index'])->name('index');
     Route::get('/create',[UserController::class,'Create'])->name('create');
-    Route::post('/',function(){
-        return 'Store User';
-    })->name('store');
+    Route::post('/',[UserController::class,'Store'])->name('store');
     Route::get('/{id}/edit',[UserController::class,'Edit'])->name('edit');
-    Route::put('/{id}',function($id){
-        return 'Update User ID '.$id;
-    })->name('update');
-    Route::delete('/{id}',function($id){
-        return 'Delete User ID '.$id;
-    })->name('delete');
+    Route::put('/{id}',[UserController::class,'Update'])->name('update');
+    Route::delete('/{id}',[UserController::class,'Delete'])->name('delete');
 });
